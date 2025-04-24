@@ -12,6 +12,8 @@ mongoose.connect(dbURI)
 app.use(express.static('designs'));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(express.json());
+app.use('/controllers', express.static('views/controllers'));
 
 // Blog Schema
 const blogSchema = new mongoose.Schema({
@@ -85,6 +87,32 @@ app.get('/blogs/:id', async (req, res) => {
   }
 });
 
+//Update Blog
+app.put('/blogs/:id', async (req, res) => {
+  try {
+    await Blog.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ redirect: `/blogs/${req.params.id}` });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Error updating blog' });
+  }
+});
+
+// Edit Blog
+app.get('/blogs/edit/:id', async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    if (blog) {
+      res.render('edit', { title: 'Edit Blog', blog });
+    } else {
+      res.status(404).render('404', { title: '404' });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error fetching blog');
+  }
+});
+
 // DELETE blog
 app.delete('/blogs/:id', async (req, res) => {
   try {
@@ -95,6 +123,8 @@ app.delete('/blogs/:id', async (req, res) => {
     res.status(500).json({ error: 'Error deleting blog' });
   }
 });
+
+
 
 // 404 page
 app.use((req, res) => {

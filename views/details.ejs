@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N4 | <%= title %></title>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Daily Blog</h1></a>
+            <p>A simple minimal blogsite</p>
+        </div>
+        <ul>
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blogs/create">New Blog</a></li>
+        </ul>
+    </nav>
+
+    <div class="details content">
+        <h2><%= blog.title %></h2>
+        <div class="content">
+            <p><%= blog.body %></p>
+        </div>
+        <div class="blog-actions">
+            <a href="/blogs/edit/<%= blog._id %>" class="edit">Edit</a>
+            <button class="delete" data-doc="<%= blog._id %>">Delete</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { handleSingleDelete } from './controllers/controller.js';
+        handleSingleDelete();
+    </script>
+</body>
+</html>
