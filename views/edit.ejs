@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N4 | <%= title %></title>
+    <title>Edit Blog</title>
     <link rel="stylesheet" href="/create.css">
 </head>
 <body>
@@ -28,12 +28,12 @@
             <label for="body">Blog body:</label>
             <textarea id="body" name="body" required><%= blog.body %></textarea>
             <button type="submit">Update Blog</button>
-        </form>
-    </div>
-
-    <script type="module">
-        import { handleEdit } from './controllers/controller.js';
-        handleEdit();
-    </script>
+          </form>
+      </div>
+      
+      <script type="module">
+        import { handleUpdate } from '/controllers/controller.js';
+        handleUpdate();
+      </script>
 </body>
 </html>
